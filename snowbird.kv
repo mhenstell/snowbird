@@ -1,0 +1,120 @@
+
+# <Widget>:
+#    canvas.after:
+#       Line:
+#          rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+#          dash_offset: 5
+#          dash_length: 3
+      
+#:set inches_font_size "36sp"
+#:set label_font_size "22sp"
+#:set label_font "proxima-nova/proximanova-regular-webfont.ttf"
+#:set label_color [0.4,0.4,0.4,1]
+
+<LogoWidget>:
+   Image:
+      source: "snowbird4.png"
+      size_hint: (1, 1.75)
+      height: dp(40)
+    # pose: root.pose
+    # size: [100,100]
+
+<TimestampWidget>
+   Label:
+      font_size: 20
+      font_name: "proxima-nova/proximanova-regular-webfont.ttf"
+      text: root.timestamp
+      size_hint: (1, 1.6)
+      color: [1,1,1,0.5]
+
+    # canvas.after:
+    #   Color:
+    #       rgba: 1,0,0,0.5
+    #   Rectangle:
+    #       size: self.size
+    #       pos: self.pos
+
+<SnowDepthsWidget>:
+   orientation: 'horizontal'
+   #pos: (0, -320/3)
+   size_hint: (1, 0.2)
+   padding: [0,0,0,0]
+
+   font_size_large: 32
+   font_size_small: 15
+
+    
+   GridLayout:
+      size: root.size
+      cols: 4
+
+      Label:
+         text: root.twelve_hr
+         font_size: inches_font_size
+         font_name: label_font
+      Label:
+         text: root.twentyfour_hr
+         font_size: inches_font_size
+         font_name: label_font
+      Label:
+         text: root.fourtyeight_hr
+         font_size: inches_font_size
+         font_name: label_font
+      Label:
+         text: root.depth
+         font_size: inches_font_size
+         font_name: label_font
+
+      Label:
+         text: "12 Hour"
+         font_size: label_font_size
+         font_name: label_font
+         color: label_color
+      Label:
+         text: "24 Hour"
+         font_size: label_font_size
+         font_name: label_font
+         color: label_color
+      Label:
+         text: "48 Hour"
+         font_size: label_font_size
+         font_name: label_font
+         color: label_color
+      Label:
+         text: "Depth"
+         font_size: label_font_size
+         font_name: label_font
+         color: label_color
+
+<IconWidget>:
+   size_hint: 1,1
+        
+   AsyncImage:
+      source: root.icon_source
+      size_hint: None, None
+      allow_stretch: True
+      pos: 480/2+20, 320/2-20
+      size: 200,200
+
+<NextButton>:
+   background_color: [0,0,0,0]
+
+<WebcamWidget>:
+   Image:
+      id: cam
+      source: "/tmp/cams/PeakCam_DownCanyon.jpg"
+      color: [0,0,0,0]
+      bg_color: [0,0,0,0]
+      canvas.before:
+         Color:
+            rgba: self.bg_color
+         Rectangle:
+            pos: self.pos
+            size: self.size
+   Label:
+      id: cam_label
+      text: "Webcam"
+      font_size: inches_font_size
+      font_name: label_font
+      size_hint: 1, None
+      color: [0,0,0,0]
