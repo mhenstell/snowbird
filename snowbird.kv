@@ -1,4 +1,5 @@
-
+# The following block draws a box around every Kivy widget.
+# this makes debugging slightly easier.
 # <Widget>:
 #    canvas.after:
 #       Line:
@@ -11,14 +12,14 @@
 #:set label_font "proxima-nova/proximanova-regular-webfont.ttf"
 #:set label_color [0.4,0.4,0.4,1]
 
+# Widget for displaying the snowbird logo
 <LogoWidget>:
    Image:
       source: "snowbird4.png"
       size_hint: (1, 1.75)
       height: dp(40)
-    # pose: root.pose
-    # size: [100,100]
 
+# Widget for displaying the timestamp of the latest data
 <TimestampWidget>
    Label:
       font_size: 20
@@ -27,13 +28,7 @@
       size_hint: (1, 1.6)
       color: [1,1,1,0.5]
 
-    # canvas.after:
-    #   Color:
-    #       rgba: 1,0,0,0.5
-    #   Rectangle:
-    #       size: self.size
-    #       pos: self.pos
-
+# Widget for displaying the snow depths and labels 
 <SnowDepthsWidget>:
    orientation: 'horizontal'
    #pos: (0, -320/3)
@@ -43,11 +38,13 @@
    font_size_large: 32
    font_size_small: 15
 
-    
+   # Grid to hold the depths and labels
    GridLayout:
       size: root.size
       cols: 4
 
+      # Snow depths. text is linked to StringProperty()'s declared
+      # in SnowDepthsWidget() in main.py
       Label:
          text: root.twelve_hr
          font_size: inches_font_size
@@ -65,6 +62,7 @@
          font_size: inches_font_size
          font_name: label_font
 
+      # Snow depth labels
       Label:
          text: "12 Hour"
          font_size: label_font_size
@@ -86,6 +84,7 @@
          font_name: label_font
          color: label_color
 
+# Widget for displaying the current weather icon
 <IconWidget>:
    size_hint: 1,1
         
@@ -96,9 +95,11 @@
       pos: 480/2+20, 320/2-20
       size: 200,200
 
+# Webcam button widget. Invisible, drawn over the whole screen.
 <NextButton>:
    background_color: [0,0,0,0]
 
+# Widget for holding the webcam display Image and Label
 <WebcamWidget>:
    Image:
       id: cam

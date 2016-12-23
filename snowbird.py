@@ -9,6 +9,7 @@ CAMS_FOLDER = "/tmp/cams"
 CAM_TIMEOUT = 1000 # seconds
 
 def fetch_weather():
+    """ Returns the html of /mountain-report """
     try:
         r = requests.get(SNOWBIRD_URL + "/mountain-report/")
         return r.text
@@ -16,6 +17,8 @@ def fetch_weather():
         print("Error fetching %s: %s" % (SNOWBIRD_URL, e))
 
 def parse_weather(html_doc):
+    """ Use BeautifulSoup to parse the snowbird html and pull out the relevent tags for
+    temperatures, snowfall, icon, timestamp, and cameras. The snowbird html is well-behaved, for now."""
 
     output = {}
 
@@ -53,6 +56,8 @@ def parse_weather(html_doc):
     return output
 
 def fetch_icon(url):
+    """ Fetch the current weather icon and save it to /tmp """
+
     basename = os.path.basename(url)
     if not os.path.exists(basename):
         response = requests.get(SNOWBIRD_URL + url, stream=True)
@@ -61,12 +66,15 @@ def fetch_icon(url):
     return basename
 
 def fetch_webcams(cams):
+    """ Fetch new webcam images and save them to WEBCAMS_FOLDER. """
+    # Note! Kivy won't display images that are larger than some secret OpenGL buffer size,
+    # so the practical limit on the Pi Zero is something like 500kb. I got around this by downloading
+    # and displaying thumbnails. """
 
     if not os.path.exists(CAMS_FOLDER):
         os.mkdir(CAMS_FOLDER)
 
     for cam in cams:
-        # basename = os.path.basename(cam['url'])
         local_path = os.path.join(CAMS_FOLDER, cam['name'].replace(" ", "_")) + ".jpg"
 
         if not os.path.exists(local_path) or time.time() - os.path.getmtime(local_path) > CAM_TIMEOUT:
@@ -80,7 +88,6 @@ def fetch_webcams(cams):
 if __name__ == "__main__":
     html = fetch_weather()
     output = parse_weather(html)
-    # output['icon_basename'] = fetch_icon(output['icon_url'])
 
     print(output)
 
