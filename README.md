@@ -29,3 +29,6 @@ The first is `/etc/init.d/start-fbcp` which takes care of starting `fbcp`, a pro
 The second script is `/etc/init.d/start-snowbird` which starts the python kivy app.
 
 You can stop or start these directly by using, for example, `sudo /etc/init.d/start-snowbird [stop|start]` You can also change the scripts or add your own boot scripts by following the [directions on this page.](http://www.stuffaboutcode.com/2012/06/raspberry-pi-run-program-at-start-up.html). Make sure not to skip the `chmod` or `update-rc.d` commands or things won't start on boot like you want.
+
+### Logging and Config
+The Kivy process (`main.py`) is logging to `/var/log/snowbird`. A new sequentially-named logfile is created every time the process is started. Logging location, level, and other kivy parameters can be changed in the kivy `config.ini`. Note: If you're running the process by hand using the `pi` user, the kivy config folder is at `/home/pi/.kivy`. However, the init process that starts `main.py` on boot is running as the `root` user, so you'll probably want to play around with `/root/.kivy` (as the `root` user) instead. 
