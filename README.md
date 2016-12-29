@@ -1,3 +1,12 @@
+# Snowbird
+## An internet-enabled desktop widget, using Python on a Raspberry Pi Zero
+
+The Snowbird desktop widget parses current weather data from the [Snowbird Ski Resort](http://snowbird.com) website and displays it on a 3.5" touchscreen, mounted inside a custom-made wood enclosure.
+
+Click the image below to see the Snowbird widget in action.
+
+[![Snowbird gif](snowbird_gif.png)](http://i.imgur.com/HrovSWZ.gifv)
+
 ### Python
 `main.py` contains all of the app logic and widget declarations.
 `snowbird.kv` contains all the Kivy layout declarations.
